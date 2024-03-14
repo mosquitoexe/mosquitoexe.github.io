@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orçamento</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+    padding: 20px;
+    margin: 0;
+  }
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .logo {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    max-width: 80%;
+    height: auto;
+  }
+  h2 {
+    margin-bottom: 20px;
+  }
+  input[type="text"], input[type="tel"], input[type="email"], input[type="date"], select, input[type="number"], textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: #ffffff;
+    box-sizing: border-box;
+  }
+  input[type="submit"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  textarea {
+    resize: vertical;
+    height: 100px;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <img src="chargevix_logo.webp" alt="ChargeVix Logo" class="logo">
+  <h2>Gerador de Orçamento</h2>
+  <form id="quoteForm">
+    <input type="text" id="fullName" placeholder="Nome Completo">
+    <input type="tel" id="phone" placeholder="Telefone">
+    <input type="email" id="email" placeholder="E-mail">
+    <input type="text" id="buildingName" placeholder="Nome do Edifício">
+    <input type="text" id="buildingDistrict" placeholder="Bairro do Edifício">
+    <input type="date" id="visitDate" disabled>
+    <select id="tubeColor">
+      <option value="cinza">Cinza</option>
+      <option value="preto">Preto</option>
+      <option value="branco">Branco</option>
+      <option value="outros">Outros</option>
+    </select>
+    <input type="text" id="carName" placeholder="Nome do Carro">
+    <input type="text" id="carBrand" placeholder="Marca do Carro">
+    <select id="installationType">
+      <option value="wallbox">Wallbox</option>
+      <option value="tomada">Tomada</option>
+      <option value="outros">Outros</option>
+    </select>
+    <input type="number" id="difficultyNumber" min="1" max="5" placeholder="Número de Dificuldades">
+    <input type="number" id="squareMeters" placeholder="Metragem">
+    <input type="number" id="price" placeholder="Preço">
+    <input type="text" id="paymentMethod" placeholder="Forma de Pagamento">
+    <textarea id="observation" placeholder="Observação"></textarea>
+    <input type="submit" value="Gerar Orçamento">
+  </form>
+  <textarea id="quoteResult" readonly style="display: none;"></textarea>
+</div>
+<img src="foto_proporcional.jpg" alt="Foto Proporcional" class="photo">
+<script>
+  // Define a data atual como o valor padrão do campo de data
+  document.getElementById('visitDate').valueAsDate = new Date();
+
+  document.getElementById('quoteForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    var fullName = document.getElementById('fullName').value;
+    var phone = document.getElementById('phone').value;
+    var email = document.getElementById('email').value;
+    var buildingName = document.getElementById('buildingName').value;
+    var buildingDistrict = document.getElementById('buildingDistrict').value;
+    var visitDate = document.getElementById('visitDate').value;
+    var tubeColor = document.getElementById('tubeColor').value;
+    var carName = document.getElementById('carName').value;
+    var carBrand = document.getElementById('carBrand').value;
+    var installationType = document.getElementById('installationType').value;
+    var difficultyNumber = document.getElementById('difficultyNumber').value;
+    var squareMeters = document.getElementById('squareMeters').value;
+    var price = document.getElementById('price').value;
+    var paymentMethod = document.getElementById('paymentMethod').value;
+    var observation = document.getElementById('observation').value;
+
+    var quoteText = "Nome Completo: " + fullName + "\n" +
+                    "Telefone: " + phone + "\n" +
+                    "E-mail: " + email + "\n" +
+                    "Nome do Edifício: " + buildingName + "\n" +
+                    "Bairro do Edifício: " + buildingDistrict + "\n" +
+                    "Data da Visita Técnica: " + visitDate + "\n" +
+                    "Cor do Tubo: " + tubeColor + "\n" +
+                    "Nome do Carro: " + carName + "\n" +
+                    "Marca do Carro: " + carBrand + "\n" +
+                    "Tipo de Instalação: " + installationType + "\n" +
+                    "Número de Dificuldades: " + difficultyNumber + "\n" +
+                    "Metragem: " + squareMeters + "\n" +
+                    "Preço: " + price + "\n" +
+                    "Forma de Pagamento: " + paymentMethod + "\n" +
+                    "Observação: " + observation;
+
+    document.getElementById('quoteResult').value = quoteText;
+
+    // Enviar para o WhatsApp
+    var message = encodeURIComponent(quoteText);
+    var phoneNumber = '27999082829'; // Número do WhatsApp para onde enviar a mensagem
+    var whatsappLink = 'https://wa.me/' + phoneNumber + '?text=' + message;
+    window.open(whatsappLink, '_blank');
+  });
+</script>
+</body>
+</html>
